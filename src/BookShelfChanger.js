@@ -8,14 +8,14 @@ class BookShelfChanger extends React.Component {
     }
 
     changeSelect = event => {
-        console.log('changed!!!!')
+        event.persist()
         this.setState(previousState => previousState.selectedValue = event.target.value)
     }
 
     render() {
         return (
             <div className="book-shelf-changer">
-                <select onChange={this.changeSelect} value={this.state.selectedValue}>
+                <select onChange={event => this.changeSelect(event)} value={this.state.selectedValue}>
                     {this.props.valuesAndTexts.map((valueAndText, index) => (
                         <option
                             value={valueAndText.value}
