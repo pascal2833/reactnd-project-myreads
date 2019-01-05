@@ -1,5 +1,6 @@
-import React from "react";
+import React from "react"
 import propTypes from 'prop-types'
+import BookShelfChanger from "./BookShelfChanger"
 
 
 const getAuthorsOk = (authors) => {
@@ -8,6 +9,13 @@ const getAuthorsOk = (authors) => {
         return acc
     }, [])
 }
+const valuesAndTextsChanger = [
+    {value: 'move', text: 'Move to...'},
+    {value: 'currentlyReading', text: 'Currently Reading'},
+    {value: 'wantToRead', text: 'Want to Read'},
+    {value: 'read', text: 'Read'},
+    {value: 'none', text: 'None'}
+]
 const Book = (props) => (
     <li>
         <div className="book">
@@ -17,18 +25,13 @@ const Book = (props) => (
                     style={{ width: 128, height: 193, backgroundImage: `url(${props.book.imageLinks.smallThumbnail})` }}
                 >
                 </div>
-                <div className="book-shelf-changer">
-                    <select>
-                        <option value="move" disabled>Move to...</option>
-                        <option value="currentlyReading">Currently Reading</option>
-                        <option value="wantToRead">Want to Read</option>
-                        <option value="read">Read</option>
-                        <option value="none">None</option>
-                    </select>
-                </div>
+                <BookShelfChanger
+                    valuesAndTexts={valuesAndTextsChanger}
+                    currentShelf={props.book.shelf}
+                ></BookShelfChanger>
             </div>
             <div className="book-title">{props.book.title}</div>
-            <div className="book-authors">{getAuthorsOk(props.book['authors'])}</div>
+            <div className="book-authors">{getAuthorsOk(props.book.authors)}</div>
         </div>
     </li>
 )
