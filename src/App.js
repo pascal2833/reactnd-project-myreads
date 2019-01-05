@@ -25,11 +25,13 @@ class BooksApp extends React.Component {
               const groups = data.reduce((acc, book) => {
                   const found = acc.find(e => e.shelf === book.shelf)
                   if (!found) {
-                      acc.push(book.shelf)
+                      acc.push(book)
                   }
                   return acc
               }, [])
-              this.setState(previousState => previousState.groups = groups)
+              const groupsOK = groups.map(book => book.shelf)
+              console.log(groupsOK)
+              this.setState(previousState => previousState.groups = groupsOK)
           }
       )
     }
@@ -66,7 +68,6 @@ class BooksApp extends React.Component {
                               title='MyReads'
                           ></Header>
                           <div className="list-books-content">
-                              <BookShelf group={this.state.groups[0]}></BookShelf>
                               {this.state.groups.map((group, index) => <BookShelf key={index} group={group}></BookShelf>)}
                           </div>
                           <div className="list-books-content">
@@ -227,8 +228,6 @@ class BooksApp extends React.Component {
                   )}
               </div>
           )
-
-      return (<div>chzeic</div>)
   }
 }
 

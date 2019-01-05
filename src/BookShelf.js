@@ -8,7 +8,7 @@ class BookShelf extends Component {
                 cirenic
                 <div>
                     <div className="bookshelf">
-                        <h2 className="bookshelf-title">{this.props.group}ss</h2>
+                        <h2 className="bookshelf-title">{this.props.group}</h2>
                     </div>
                 </div>
             </div>
