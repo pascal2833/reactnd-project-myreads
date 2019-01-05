@@ -1,25 +1,34 @@
-import React, { Component } from 'react'
+import React from 'react'
 import propTypes from 'prop-types'
+import Book from './Book'
 
-class BookShelf extends Component {
-    render() {
-        return (
-            <div className="list-books-content">
-                cirenic
-                <div>
-                    <div className="bookshelf">
-                        <h2 className="bookshelf-title">{this.props.group}</h2>
-                    </div>
+const getBookByShelf = (allBooks, group) => {
+    return allBooks.filter(book => book.shelf === group)
+}
+const BookShelf = (props) => (
+    <div className="list-books-content">
+        <div>
+            <div className="bookshelf">
+                <h2 className="bookshelf-title">{props.group}</h2>
+                <div className="bookshelf-books">
+                    <ol className="books-grid">
+                        {getBookByShelf(props.allBooks, props.group).map((book, index) =>
+                            <Book
+                                key={index}
+                                book={book}
+                            ></Book>
+                        )}
+                    </ol>
                 </div>
             </div>
-        )
-    }
-    
-}
+        </div>
+    </div>
+)
 
 
 BookShelf.propTypes = {
-    group: propTypes.string
+    group: propTypes.string,
+    allBooks: propTypes.array
 }
 
 export default BookShelf
