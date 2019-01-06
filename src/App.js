@@ -37,6 +37,16 @@ class BooksApp extends React.Component {
       )
     }
 
+    actualiseShelf = (shelf, bookid) => {
+      if (this.state.allBooks.length >= 1) {
+          for (let i = 0; i < this.state.allBooks.length; i++) {
+              if (this.state.allBooks[i].id === bookid) {
+                  this.setState(previousState => previousState.allBooks[i].shelf = shelf)
+              }
+          }
+      }
+    }
+
   render() {
           return (
               <div className="app">
@@ -52,6 +62,7 @@ class BooksApp extends React.Component {
                       <ListBooks
                           allBooks={this.state.allBooks}
                           groups={this.state.groups}
+                          getShelfAndBook={this.actualiseShelf}
                       ></ListBooks>
                   )}/>
 

@@ -18,29 +18,42 @@ const valuesAndTextsChanger = [
     {value: 'read', text: 'Read'},
     {value: 'none', text: 'None'}
 ]
-const Book = (props) => (
-    <li>
-        <div className="book">
-            <div className="book-top">
-                <div
-                    className="book-cover"
-                    style={{ width: 128, height: 193, backgroundImage: `url(${props.book['imageLinks']['smallThumbnail']})` }}
-                >
+
+const Book = (props) => {
+    const adaptShelf = (shelfChoosed, bookid) => {
+        props.bookAndShelf(shelfChoosed, bookid)
+    }
+    return (
+        <li>
+            <div className="book">
+                <div className="book-top">
+                    <div
+                        className="book-cover"
+                        style={{width: 128, height: 193, backgroundImage: `url(${props.book['imageLinks']['smallThumbnail']})`}}
+                    >
+                    </div>
+                    <BookShelfChanger
+                        valuesAndTexts={valuesAndTextsChanger}
+                        currentShelf={props.book.shelf}
+                        book={props.book}
+                        selectToAddBooksChanged={adaptShelf}
+                    ></BookShelfChanger>
                 </div>
-                <BookShelfChanger
-                    valuesAndTexts={valuesAndTextsChanger}
-                    currentShelf={props.book.shelf}
-                    book={props.book}
-                ></BookShelfChanger>
+                <div className="book-title">{props.book.title}</div>
+                <div className="book-authors">{getAuthorsOk(props.book.authors)}</div>
             </div>
-            <div className="book-title">{props.book.title}</div>
-            <div className="book-authors">{getAuthorsOk(props.book.authors)}</div>
-        </div>
-    </li>
-)
+        </li>
+    )
+}
+
+
+
+
+
 
 Book.propTypes = {
-    book: propTypes.object
+    book: propTypes.object,
+    bookAndShelf: propTypes.func
 }
 
 export default Book
