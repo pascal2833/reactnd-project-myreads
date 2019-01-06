@@ -4,10 +4,12 @@ import BookShelfChanger from "./BookShelfChanger"
 
 
 const getAuthorsOk = (authors) => {
-    return authors.reduce((acc, author) => {
-        acc = `${acc} ${author} `
-        return acc
-    }, [])
+    if (typeof authors !== 'undefined') {
+        return authors.reduce((acc, author) => {
+            acc = `${acc} ${author} `
+            return acc
+        }, [])
+    } else return []
 }
 const valuesAndTextsChanger = [
     {value: 'move', text: 'Move to...'},
@@ -22,7 +24,7 @@ const Book = (props) => (
             <div className="book-top">
                 <div
                     className="book-cover"
-                    style={{ width: 128, height: 193, backgroundImage: `url(${props.book.imageLinks.smallThumbnail})` }}
+                    style={{ width: 128, height: 193, backgroundImage: `url(${props.book['imageLinks']['smallThumbnail']})` }}
                 >
                 </div>
                 <BookShelfChanger

@@ -1,9 +1,32 @@
 import React from "react"
 import propTypes from 'prop-types'
+import * as BooksAPI from './BooksAPI'
 import {Link} from "react-router-dom"
+import Book from "./Book"
 
 
 class SearchBooks extends React.Component {
+
+    state = {
+        books: []
+    }
+
+    searchInputChanged = (event) => {
+        BooksAPI.search(event.target.value).then(
+            data => {
+                if (typeof data !== 'undefined') {
+                    for (let i = 0; i < data.length; i++) {
+                        for (let j = 0; j < this.props.booksInShelf.length; j++) {
+                            if (data[i].id === this.props.booksInShelf[j].id) {
+                                data[i] = this.props.booksInShelf[j]
+                            }
+                        }
+                    }
+                    this.setState(previousState => previousState.books = data)
+                }
+            }
+        )
+    }
 
     render() {
         return (
@@ -26,12 +49,25 @@ class SearchBooks extends React.Component {
                   you don't find a specific author or title. Every search is limited by search terms.
 
                 */}
-                        <input type="text" placeholder="Search by title or author"/>
+                        <input
+                            type="text"
+                            placeholder="Search by title or author"
+                            onChange={ event => this.searchInputChanged(event) }
+                        />
 
                     </div>
                 </div>
                 <div className="search-books-results">
-                    <ol className="books-grid"></ol>
+                    <ol className="books-grid">
+                        {this.state.books.length >= 1 && (
+                            this.state.books.map((book, index) =>
+                            <Book
+                                key={index}
+                                book={book}
+                            ></Book>
+                        ))
+                        }
+                    </ol>
                 </div>
             </div>
         )
@@ -39,6 +75,7 @@ class SearchBooks extends React.Component {
 }
 
 SearchBooks.propTypes = {
+    booksInShelf: propTypes.array
 }
 
 export default SearchBooks
