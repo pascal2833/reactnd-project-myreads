@@ -1,5 +1,6 @@
 import React from "react"
 import propTypes from 'prop-types'
+import * as BooksAPI from './BooksAPI'
 
 class BookShelfChanger extends React.Component {
 
@@ -10,7 +11,12 @@ class BookShelfChanger extends React.Component {
     changeSelect = event => {
         event.persist()
         this.setState(previousState => previousState.selectedValue = event.target.value)
+        BooksAPI.update(this.props.book, this.props.currentShelf).then(
+            data => {
+                console.log(data)
+            })
     }
+
 
     render() {
         return (
@@ -32,7 +38,8 @@ class BookShelfChanger extends React.Component {
 
 BookShelfChanger.propTypes = {
     valuesAndTexts: propTypes.array,
-    currentShelf: propTypes.string
+    currentShelf: propTypes.string,
+    book: propTypes.object
 }
 
 export default BookShelfChanger

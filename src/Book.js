@@ -28,6 +28,7 @@ const Book = (props) => (
                 <BookShelfChanger
                     valuesAndTexts={valuesAndTextsChanger}
                     currentShelf={props.book.shelf}
+                    book={props.book}
                 ></BookShelfChanger>
             </div>
             <div className="book-title">{props.book.title}</div>

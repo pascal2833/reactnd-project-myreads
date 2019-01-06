@@ -1,6 +1,7 @@
 import React from 'react'
 import propTypes from 'prop-types'
 import Book from './Book'
+import { Link } from 'react-router-dom'
 
 const getBookByShelf = (allBooks, group) => {
     return allBooks.filter(book => book.shelf === group)
@@ -21,6 +22,13 @@ const BookShelf = (props) => (
                     </ol>
                 </div>
             </div>
+        </div>
+        <div className="open-search">
+            <Link
+                to='addBook'
+            >
+                <button>Add a book</button>
+            </Link>
         </div>
     </div>
 )
