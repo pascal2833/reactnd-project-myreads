@@ -2,7 +2,7 @@ import React from 'react'
 import * as BooksAPI from './BooksAPI'
 import './App.css'
 import Header from './Header'
-import BookShelf from './BookShelf'
+import ListBooks from './ListBooks'
 import SearchBooks from './SearchBooks'
 import { Route } from 'react-router-dom'
 
@@ -48,21 +48,12 @@ class BooksApp extends React.Component {
                       ></Header>
                   )}/>
 
-                  <div className="list-books">
-                      <Route exact path='/' render={() => (
-                          <div className="list-books-content">
-                              {this.state.groups.map((group, index) =>
-                                  <BookShelf
-                                      key={index}
-                                      group={group}
-                                      allBooks={this.state.allBooks}
-                                  >
-                                  </BookShelf>
-                              )
-                              }
-                          </div>
-                      )}/>
-                  </div>
+                  <Route exact path='/' render={() => (
+                      <ListBooks
+                          allBooks={this.state.allBooks}
+                          groups={this.state.groups}
+                      ></ListBooks>
+                  )}/>
 
                   <Route exact path='/addBook' render={() => (
                       <SearchBooks/>

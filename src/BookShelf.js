@@ -8,19 +8,17 @@ const getBookByShelf = (allBooks, group) => {
 }
 const BookShelf = (props) => (
     <div className="list-books-content">
-        <div>
-            <div className="bookshelf">
-                <h2 className="bookshelf-title">{props.group}</h2>
-                <div className="bookshelf-books">
-                    <ol className="books-grid">
-                        {getBookByShelf(props.allBooks, props.group).map((book, index) =>
-                            <Book
-                                key={index}
-                                book={book}
-                            ></Book>
-                        )}
-                    </ol>
-                </div>
+        <div className="bookshelf">
+            <h2 className="bookshelf-title">{props.group}</h2>
+            <div className="bookshelf-books">
+                <ol className="books-grid">
+                    {getBookByShelf(props.allBooks, props.group).map((book, index) =>
+                        <Book
+                            key={index}
+                            book={book}
+                        ></Book>
+                    )}
+                </ol>
             </div>
         </div>
         <div className="open-search">
