@@ -9,8 +9,8 @@ const getBookByShelf = (allBooks, group) => {
 
 const BookShelf = (props) => {
 
-    const getBookAndShelf = (shelf, bookid) => {
-        props.receiveBookAndShelf(shelf, bookid)
+    const getBookAndShelf = (shelf, book) => {
+        props.receiveBookAndShelf(shelf, book)
     }
 
     return (

@@ -4,8 +4,8 @@ import BookShelf from "./BookShelf";
 
 
 const ListBooks = (props) => {
-    const getBookAndShelf = (shelf, bookid) => {
-        props.getShelfAndBook(shelf, bookid)
+    const getBookAndShelf = (shelf, book) => {
+        props.getShelfAndBook(shelf, book)
     }
     return (
         <div className="list-books">

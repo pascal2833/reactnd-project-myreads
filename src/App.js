@@ -37,14 +37,31 @@ class BooksApp extends React.Component {
       )
     }
 
-    actualiseShelf = (shelf, bookid) => {
+    actualiseShelf = (shelf, book) => {
       if (this.state.allBooks.length >= 1) {
           for (let i = 0; i < this.state.allBooks.length; i++) {
-              if (this.state.allBooks[i].id === bookid) {
+              if (this.state.allBooks[i].id === book.id) {
                   this.setState(previousState => previousState.allBooks[i].shelf = shelf)
               }
           }
       }
+    }
+
+    addBook = (shelf, book) => {
+      // If book is already in shelf, just actualise shelf (if it's not, add book).
+        const bookFromParam = book
+        console.log(book)
+        const found = this.state.allBooks.find(book => book.id === bookFromParam.id)
+        if (typeof found !== 'undefined') { // in shelf.
+            this.actualiseShelf(shelf, book)
+        } else {
+            this.actualiseShelf(shelf, book)
+            this.setState(() => ({allBooks: [...this.state.allBooks, book]}))
+            // this.setState((previousState) => ({allBooks: [...previousState.allBooks, book]}))
+            // this.setState((previousState) => previousState.allBooks = [...previousState.allBooks, book])
+            console.log(this.state.allBooks)
+                console.log([...this.state.allBooks, book])
+        }
     }
 
   render() {
@@ -69,6 +86,7 @@ class BooksApp extends React.Component {
                   <Route exact path='/addBook' render={() => (
                       <SearchBooks
                         booksInShelf={this.state.allBooks}
+                        receiveBookAndShelf={this.addBook}
                       >
                       </SearchBooks>
                   )}/>

@@ -9,8 +9,10 @@ class BookShelfChanger extends React.Component {
 
     changeSelect = event => {
         event.persist() // TODO: see why, don't really understand ...
-        this.setState(previousState => previousState.selectedValue = event.target.value)
-        this.props.selectToAddBooksChanged(event.target.value, this.props.book.id)
+        if (event.target.value !== 'move' && event.target.value !== 'none') {
+            this.setState(previousState => previousState.selectedValue = event.target.value)
+            this.props.selectToAddBooksChanged(event.target.value, this.props.book)
+        }
     }
 
     render() {

@@ -20,8 +20,8 @@ const valuesAndTextsChanger = [
 ]
 
 const Book = (props) => {
-    const adaptShelf = (shelfChoosed, bookid) => {
-        props.bookAndShelf(shelfChoosed, bookid)
+    const adaptShelf = (shelfChoosed, book) => {
+        props.bookAndShelf(shelfChoosed, book)
     }
     return (
         <li>
