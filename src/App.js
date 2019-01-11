@@ -16,7 +16,8 @@ class BooksApp extends React.Component {
      */
     // showSearchPage: false,
     allBooks: [], // = books in shelf.
-    groups: []
+    groups: [],
+      test: '1'
   }
 
     componentDidMount() {
@@ -50,17 +51,12 @@ class BooksApp extends React.Component {
     addBook = (shelf, book) => {
       // If book is already in shelf, just actualise shelf (if it's not, add book).
         const bookFromParam = book
-        console.log(book)
         const found = this.state.allBooks.find(book => book.id === bookFromParam.id)
         if (typeof found !== 'undefined') { // in shelf.
             this.actualiseShelf(shelf, book)
         } else {
-            this.actualiseShelf(shelf, book)
-            this.setState(() => ({allBooks: [...this.state.allBooks, book]}))
-            // this.setState((previousState) => ({allBooks: [...previousState.allBooks, book]}))
-            // this.setState((previousState) => previousState.allBooks = [...previousState.allBooks, book])
-            console.log(this.state.allBooks)
-                console.log([...this.state.allBooks, book])
+            book.shelf = shelf
+            this.setState((previousState) => ({allBooks: [...previousState.allBooks, book]}))
         }
     }
 
