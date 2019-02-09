@@ -23,19 +23,37 @@ class BooksApp extends React.Component {
     componentDidMount() {
       BooksAPI.getAll().then(
           data => {
-              console.log(data)
+              data.reduce((acc, book) => {
+                  book.shelf = this.returnGoodGroupName(book.shelf)
+                  acc.push(book)
+                  return acc
+              }, [])
               this.setState(({allBooks: data}))
               const groups = data.reduce((acc, book) => {
-                  const found = acc.find(e => e.shelf === book.shelf)
+                  const found = acc.find(e => e.shelf === book.shelf) // Not add book already added.
                   if (!found) {
                       acc.push(book)
                   }
                   return acc
               }, [])
-              const groupsOK = groups.map(book => book.shelf)
+              let groupsOK = groups.map(book => book.shelf)
+
               this.setState(previousState => previousState.groups = groupsOK)
           }
       )
+    }
+
+    returnGoodGroupName = (group) => {
+        switch (group) {
+            case 'currentlyReading':
+                return 'Currently Reading'
+            case 'wantToRead':
+                return 'Want to read'
+            case 'read':
+                return 'Read'
+            default:
+                console.error('No group received')
+        }
     }
 
     actualiseShelf = (shelf, book) => {
