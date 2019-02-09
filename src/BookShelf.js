@@ -7,6 +7,21 @@ const getBookByShelf = (allBooks, group) => {
     return allBooks.filter(book => book.shelf === group)
 }
 
+const returnGoodGroupName = (group) => {
+    switch (group) {
+        case 'currentlyReading':
+            return 'Currently Reading'
+        case 'wantToRead':
+            return 'Want to Read'
+        case 'read':
+            return 'Read'
+        case 'none':
+            return 'none'
+        default:
+            console.error('No group received')
+    }
+}
+
 const BookShelf = (props) => {
 
     const getBookAndShelf = (shelf, book) => {
@@ -16,7 +31,7 @@ const BookShelf = (props) => {
     return (
         <div className="list-books-content">
             <div className="bookshelf">
-                <h2 className="bookshelf-title">{props.group}</h2>
+                <h2 className="bookshelf-title">{returnGoodGroupName(props.group)}</h2>
                 <div className="bookshelf-books">
                     <ol className="books-grid">
                         {getBookByShelf(props.allBooks, props.group).map((book, index) =>

@@ -1,5 +1,6 @@
 import React from "react"
 import propTypes from 'prop-types'
+import * as BooksAPI from "./BooksAPI";
 
 class BookShelfChanger extends React.Component {
 
@@ -9,11 +10,11 @@ class BookShelfChanger extends React.Component {
 
     changeSelect = event => {
         event.persist() // TODO: see why, don't really understand ...
-        if (event.target.value !== 'move' && event.target.value !== 'none') {
+        if (event.target.value !== 'move') {
             this.setState(previousState => previousState.selectedValue = event.target.value)
             this.props.selectToAddBooksChanged(event.target.value, this.props.book)
-        } else if (event.target.value === 'none') {
-            this.props.selectToAddBooksChanged(event.target.value, this.props.book)
+            console.log(event.target.value)
+            BooksAPI.update(this.props.book, event.target.value)
         }
     }
 

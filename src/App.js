@@ -16,48 +16,21 @@ class BooksApp extends React.Component {
      */
     // showSearchPage: false,
     allBooks: [], // = books in shelf.
-    groups: [],
+    groups: ['currentlyReading', 'wantToRead', 'read'],
       test: '1'
   }
 
     componentDidMount() {
+      console.log('componentDidMount')
       BooksAPI.getAll().then(
           data => {
-              data.reduce((acc, book) => {
-                  book.shelf = this.returnGoodGroupName(book.shelf)
-                  acc.push(book)
-                  return acc
-              }, [])
               console.log(data)
               this.setState(({allBooks: data}))
-              const groups = data.reduce((acc, book) => {
-                  const found = acc.find(e => e.shelf === book.shelf) // Not add book already added.
-                  if (!found) {
-                      acc.push(book)
-                  }
-                  return acc
-              }, [])
-              let groupsOK = groups.map(book => book.shelf)
-
-              this.setState(previousState => previousState.groups = groupsOK)
           }
       )
     }
 
-    returnGoodGroupName = (group) => {
-        switch (group) {
-            case 'currentlyReading':
-                return 'Currently Reading'
-            case 'wantToRead':
-                return 'Want to Read'
-            case 'read':
-                return 'Read'
-            default:
-                console.error('No group received')
-        }
-    }
-
-    actualiseShelf = (shelf, book) => {
+    actualiseShelf = (shelf, book) => { // Call only from our list page.
       if (shelf === 'none') {
           this.removeBookFromList(book)
       } else if (this.state.allBooks.length >= 1) { // Change shelf, group only if present in list.
@@ -67,9 +40,10 @@ class BooksApp extends React.Component {
               }
           }
       }
+        // BooksAPI.update(book, shelf)
     }
 
-    addOrRemoveBook = (shelf, book) => {
+    addOrRemoveBook = (shelf, book) => { // Call only from add book page.
       if (shelf === 'none') {
           this.removeBookFromList(book)
       } else {
