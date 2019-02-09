@@ -28,6 +28,7 @@ class BooksApp extends React.Component {
                   acc.push(book)
                   return acc
               }, [])
+              console.log(data)
               this.setState(({allBooks: data}))
               const groups = data.reduce((acc, book) => {
                   const found = acc.find(e => e.shelf === book.shelf) // Not add book already added.
@@ -48,7 +49,7 @@ class BooksApp extends React.Component {
             case 'currentlyReading':
                 return 'Currently Reading'
             case 'wantToRead':
-                return 'Want to read'
+                return 'Want to Read'
             case 'read':
                 return 'Read'
             default:
@@ -57,7 +58,9 @@ class BooksApp extends React.Component {
     }
 
     actualiseShelf = (shelf, book) => {
-      if (this.state.allBooks.length >= 1) {
+      if (shelf === 'none') {
+          this.removeBookFromList(book)
+      } else if (this.state.allBooks.length >= 1) { // Change shelf, group only if present in list.
           for (let i = 0; i < this.state.allBooks.length; i++) {
               if (this.state.allBooks[i].id === book.id) {
                   this.setState(previousState => previousState.allBooks[i].shelf = shelf)
@@ -66,16 +69,24 @@ class BooksApp extends React.Component {
       }
     }
 
-    addBook = (shelf, book) => {
-      // If book is already in shelf, just actualise shelf (if it's not, add book).
-        const bookFromParam = book
-        const found = this.state.allBooks.find(book => book.id === bookFromParam.id)
-        if (typeof found !== 'undefined') { // in shelf.
-            this.actualiseShelf(shelf, book)
-        } else {
-            book.shelf = shelf
-            this.setState((previousState) => ({allBooks: [...previousState.allBooks, book]}))
-        }
+    addOrRemoveBook = (shelf, book) => {
+      if (shelf === 'none') {
+          this.removeBookFromList(book)
+      } else {
+          // If book is already in shelf, just actualise shelf (if it's not, add book).
+          const bookFromParam = book
+          const found = this.state.allBooks.find(book => book.id === bookFromParam.id)
+          if (typeof found !== 'undefined') { // in shelf.
+              this.actualiseShelf(shelf, book)
+          } else {
+              book.shelf = shelf
+              this.setState((previousState) => ({allBooks: [...previousState.allBooks, book]}))
+          }
+      }
+    }
+
+    removeBookFromList = (book) => {
+        this.setState(previousState => previousState.allBooks = previousState.allBooks.filter(bookInList => bookInList.id !== book.id))
     }
 
   render() {
@@ -100,7 +111,7 @@ class BooksApp extends React.Component {
                   <Route exact path='/addBook' render={() => (
                       <SearchBooks
                         booksInShelf={this.state.allBooks}
-                        receiveBookAndShelf={this.addBook}
+                        receiveBookAndShelf={this.addOrRemoveBook}
                       >
                       </SearchBooks>
                   )}/>

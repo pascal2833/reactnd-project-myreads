@@ -13,9 +13,9 @@ const getAuthorsOk = (authors) => {
 }
 const valuesAndTextsChanger = [
     {value: 'move', text: 'Move to...'},
-    {value: 'currentlyReading', text: 'Currently Reading'},
-    {value: 'wantToRead', text: 'Want to Read'},
-    {value: 'read', text: 'Read'},
+    {value: 'Currently Reading', text: 'Currently Reading'},
+    {value: 'Want to Read', text: 'Want to Read'},
+    {value: 'Read', text: 'Read'},
     {value: 'none', text: 'None'}
 ]
 
