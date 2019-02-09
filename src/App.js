@@ -82,7 +82,7 @@ class BooksApp extends React.Component {
                       ></ListBooks>
                   )}/>
 
-                  <Route exact path='/addBook' render={() => (
+                  <Route exact path='/search' render={() => (
                       <SearchBooks
                         booksInShelf={this.state.allBooks}
                         receiveBookAndShelf={this.addOrRemoveBook}
