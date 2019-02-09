@@ -4,8 +4,15 @@ import * as BooksAPI from "./BooksAPI";
 
 class BookShelfChanger extends React.Component {
 
+
+    selectDefaultValueForSelect  = selectedValue => {
+        if (typeof selectedValue === 'undefined') {
+            return 'none'
+        } else return selectedValue
+    }
+
     state = {
-        selectedValue: this.props.currentShelf
+        selectedValue: this.selectDefaultValueForSelect(this.props.currentShelf)
     }
 
     changeSelect = event => {
@@ -13,10 +20,11 @@ class BookShelfChanger extends React.Component {
         if (event.target.value !== 'move') {
             this.setState(previousState => previousState.selectedValue = event.target.value)
             this.props.selectToAddBooksChanged(event.target.value, this.props.book)
-            console.log(event.target.value)
             BooksAPI.update(this.props.book, event.target.value)
         }
     }
+
+
 
     render() {
         return (
