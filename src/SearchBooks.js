@@ -12,6 +12,7 @@ class SearchBooks extends React.Component {
     }
 
     searchInputChanged = (event) => {
+        event.persist()
         BooksAPI.search(event.target.value).then(
             data => {
                 if (typeof data !== 'undefined') {
@@ -23,6 +24,8 @@ class SearchBooks extends React.Component {
                         }
                     }
                     this.setState(previousState => previousState.books = data)
+                } else if (event.target.value === '') {
+                    this.setState(previousState => previousState.books = [])
                 }
             }
         )

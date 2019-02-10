@@ -20,6 +20,9 @@
     - Are reading.
 - We can change the state of each books.
 
+### Note / tecnical part:
+- We don't use global state here (no redux) so we have to pass teh properties from childs to childs until tha app.js.
+
 #### Add some books to this list:
 - The "+" button at the bottom links to a page to search for some books.
 - We can find a book (search by author and title) and add it to the main page and choose the state (reading, want to read, are reading)
