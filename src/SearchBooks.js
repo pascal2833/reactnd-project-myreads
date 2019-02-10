@@ -16,6 +16,7 @@ class SearchBooks extends React.Component {
         BooksAPI.search(event.target.value).then(
             data => {
                 if (typeof data !== 'undefined') {
+                    console.log(data)
                     for (let i = 0; i < data.length; i++) {
                         for (let j = 0; j < this.props.booksInShelf.length; j++) {
                             if (data[i].id === this.props.booksInShelf[j].id) {

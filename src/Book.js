@@ -19,6 +19,12 @@ const valuesAndTextsChanger = [
     {value: 'none', text: 'None'}
 ]
 
+const getImageUrl = (propsBooks) => {
+    if (typeof propsBooks['imageLinks'] === 'undefined') {
+        return 'https://via.placeholder.com/.png'
+    } else return propsBooks['imageLinks']['smallThumbnail']
+}
+
 const Book = (props) => {
     const adaptShelf = (shelfChoosed, book) => {
         props.bookAndShelf(shelfChoosed, book)
@@ -29,7 +35,7 @@ const Book = (props) => {
                 <div className="book-top">
                     <div
                         className="book-cover"
-                        style={{width: 128, height: 193, backgroundImage: `url(${props.book['imageLinks']['smallThumbnail']})`}}
+                        style={{width: 128, height: 193, backgroundImage: `url(${getImageUrl(props.book)})`}}
                     >
                     </div>
                     <BookShelfChanger
